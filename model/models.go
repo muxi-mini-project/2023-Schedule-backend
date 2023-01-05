@@ -8,27 +8,36 @@ type User struct{
 	Password string
 	Token string
 }
+
 type Claims struct{
 	ID string
 	jwt.StandardClaims
 }
-type Date struct{
-	Year int
-	Month int
-	Day int
-	Schedules[20] Schedule
-	Photos[5] string
 
+type Date struct{
+	Year string
+	Month string
+	Day string
+	UserId string
+}
+
+type DatePlus struct{
+	Date
+	Done bool
+	Memory bool
 }
 
 type Schedule struct{
+	Date
 	Content string
 	Done bool
 }
 
 type Door struct{
-	Year int
-	Month int
-	Day int
+	Date
 }
 
+type Photo struct{
+	Date
+	Photo string
+}
