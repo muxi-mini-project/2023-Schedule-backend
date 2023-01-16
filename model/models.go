@@ -23,7 +23,7 @@ type Date struct{
 
 type DatePlus struct{
 	Date
-	Done bool
+	//Done bool
 	Memory bool
 }
 
