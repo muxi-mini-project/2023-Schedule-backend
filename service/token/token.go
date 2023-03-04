@@ -2,6 +2,7 @@ package token
 import(
 	"time"
 	"Schedule/model"
+	"github.com/gin-gonic/gin"
 	"github.com/dgrijalva/jwt-go"
 )
 //生成token
@@ -37,4 +38,16 @@ func ParseToken(token string)(*model.Claims,error){
 		}
 	}
 	return nil,err
+}
+//一个token先验//我也不知道我在讲什么
+func GetToken(c *gin.Context)string{
+	tokenString:=c.GetHeader("Authorization")                                        //啊啊啊为什么是authorization啊，没想明白
+	if tokenString == "" {
+		return "0"
+	}
+	claims, err := ParseToken(tokenString)
+	if err != nil{
+		return "0"
+	}
+	return claims.Id
 }

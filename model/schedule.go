@@ -7,7 +7,7 @@ import(
 func LookSchedule(year int,month int,day int,
 		uid string)([]Schedule){
 	var schedule []Schedule
-	DB.Where("year=? and month=? and day=? and uid = ?",year,month,day,uid).Find(&schedule)
+	DB.Where("year=? and month=? and day=? and user_id = ?",year,month,day,uid).Find(&schedule)
 	return schedule
 }//查看该用户在某天的所有任务
 
@@ -24,13 +24,13 @@ func Check(userid string,content string)(bool){
 
 func LookScheduleFinish(year int,month int,day int,uid string)([]Schedule){
 	var schedule []Schedule
-	DB.Where("year=? and month=? and day=? and uid = ? and Done = ?",year,month,day,uid,true).Find(&schedule)
+	DB.Where("year=? and month=? and day=? and user_id = ? and Done = ?",year,month,day,uid,true).Find(&schedule)
 	return schedule
 }//已做的任务
 //所以要在hanler里面进行循环，model只负责查找
 
 func LookScheduleUnfinish(year int,month int,day int,uid string)([]Schedule){
 	var schedule []Schedule
-	DB.Where("year=? and month=? and day=? and uid = ? and Done = ?",year,month,day,uid,false).Find(&schedule)
+	DB.Where("year=? and month=? and day=? and user_id = ? and Done = ?",year,month,day,uid,false).Find(&schedule)
 	return schedule
 }//还没做的任务

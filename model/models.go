@@ -6,7 +6,7 @@ import(
 type User struct{
 	UID string
 	Password string
-	Token string
+	//Token string
 }
 
 type Claims struct{
@@ -15,9 +15,9 @@ type Claims struct{
 }
 
 type Date struct{
-	Year string
-	Month string
-	Day string
+	Year int
+	Month int
+	Day int
 	UserId string
 }
 
@@ -39,5 +39,44 @@ type Door struct{
 
 type Photo struct{
 	Date
-	Photo string
+	PhotoUrl string
+	InsertTime string
+	Number int
+}
+
+
+
+type Fundmt struct{
+	Code int `json:"code"`
+	Message string `json:"message"`
+}
+type SetDate struct{
+	Fundmt
+	Year int `json:"year"`
+	Month int `json:"month"`
+	Day int `json:"day"`
+}
+type Mem struct{
+	Fundmt
+	IfMemory bool
+}
+type Token struct{
+	Fundmt
+	Token string `json:"token"`
+}
+type Sch struct{
+	Fundmt
+	Schedule struct{
+		Schedule
+	} `json:"schedule"`//我感觉这里的数据类型是要改的//明早再说好了
+}
+type SchAndPh struct{
+	Sch
+	Photo  struct{
+		Photo
+	} `json:"photo"`
+}
+type Url struct{
+	Fundmt
+	Url string `json:"url"`
 }
