@@ -15,20 +15,20 @@ func Memory(year int,month int,day int, uid string){
 		dateplus.Memory=true
 		DB.Create(&dateplus)
 	}else{//更新
-		DB.Where("year=? and month=? and day=? and uid = ?",year,month,day,uid).Find(&dateplus)
+		DB.Where("year=? and month=? and day=? and user_id = ?",year,month,day,uid).Find(&dateplus)
 		DB.Model(&dateplus).Update("Memory",!dateplus.Memory)
 	}
 }
 
 func IfMemory(year int,month int,day int, uid string)(bool){
 	var dateplus DatePlus
-	DB.Where("year=? and month=? and day=? and uid = ?",year,month,day,uid).Find(&dateplus)
+	DB.Where("year=? and month=? and day=? and user_id = ?",year,month,day,uid).Find(&dateplus)
 	return dateplus.Memory
 }
 
 func QueryDate(year int,month int,day int, uid string)(bool){
 	var date1 DatePlus
-	DB.Where("year=? and month=? and day=? and uid = ?",year,month,day,uid).Find(&date1)
+	DB.Where("year=? and month=? and day=? and user_id = ?",year,month,day,uid).Find(&date1)
 	if date1.UserId!=""{
 		return true//有这条记录
 	}else{

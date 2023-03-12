@@ -1,9 +1,10 @@
 package model
 import(
+	"time"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 func PhotoUrlInsert(year int,month int,day int,
-		uid string,url string){
+		uid string,url string,num int){
 	photo:=Photo{
 		PhotoUrl:url,
 	}
@@ -11,6 +12,10 @@ func PhotoUrlInsert(year int,month int,day int,
 	photo.Month=month
 	photo.Day=day
 	photo.UserId=uid
+	t:=time.Now()
+	timeStr:=t.Format("2006/01/02 15:04:05")
+	photo.InsertTime=timeStr
+	photo.Number=num
 	DB.Create(&photo)
 }//添加图片url
 

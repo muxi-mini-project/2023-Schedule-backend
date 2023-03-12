@@ -1,0 +1,444 @@
+basePath: /api/v1
+definitions:
+  model.Fundmt:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.Mem:
+    properties:
+      code:
+        type: integer
+      ifMemory:
+        type: boolean
+      message:
+        type: string
+    type: object
+  model.Sch:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      schedule:
+        description: 我感觉这里的数据类型是要改的//明早再说好了
+        properties:
+          content:
+            type: string
+          day:
+            type: integer
+          done:
+            type: boolean
+          month:
+            type: integer
+          userId:
+            type: string
+          year:
+            type: integer
+        type: object
+    type: object
+  model.SchAndPh:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      photo:
+        properties:
+          day:
+            type: integer
+          insertTime:
+            type: string
+          month:
+            type: integer
+          number:
+            type: integer
+          photoUrl:
+            type: string
+          userId:
+            type: string
+          year:
+            type: integer
+        type: object
+      schedule:
+        description: 我感觉这里的数据类型是要改的//明早再说好了
+        properties:
+          content:
+            type: string
+          day:
+            type: integer
+          done:
+            type: boolean
+          month:
+            type: integer
+          userId:
+            type: string
+          year:
+            type: integer
+        type: object
+    type: object
+  model.SetDate:
+    properties:
+      code:
+        type: integer
+      day:
+        type: integer
+      message:
+        type: string
+      month:
+        type: integer
+      year:
+        type: integer
+    type: object
+  model.Token:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      token:
+        type: string
+    type: object
+  model.Url:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      url:
+        type: string
+    type: object
+host: localhost
+info:
+  contact: {}
+  description: 我的日程本API
+  title: library API
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      description: 登录前
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 首页
+      tags:
+      - handler
+  /board:
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.SchAndPh'
+      summary: 查看某一天的未完成计划和图片
+      tags:
+      - date
+  /board/searchdate:
+    post:
+      consumes:
+      - application/json
+      description: 输入年月日
+      parameters:
+      - description: 年
+        in: formData
+        name: year
+        required: true
+        type: string
+      - description: 月
+        in: formData
+        name: month
+        required: true
+        type: string
+      - description: 日
+        in: formData
+        name: day
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.SetDate'
+      summary: 查日期
+      tags:
+      - date
+  /calendar:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.SchAndPh'
+      summary: 查看某天的任务
+      tags:
+      - schedule
+  /calendar/addphoto:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 图片
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Url'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 添加图片
+      tags:
+      - photo
+  /calendar/addphoto2:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 图片
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Url'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 添加图片2
+      tags:
+      - photo
+  /calendar/addphoto3:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 图片
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Url'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 添加图片3
+      tags:
+      - photo
+  /calendar/addphoto4:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 图片
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Url'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 添加图片4
+      tags:
+      - photo
+  /calendar/check/{content}:
+    put:
+      consumes:
+      - application/json
+      description: 点击实现完成或取消完成
+      parameters:
+      - description: 某个日程
+        in: path
+        name: content
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 完成某日程
+      tags:
+      - schedule
+  /calendar/memory:
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 纪念某一天
+      tags:
+      - date
+  /calendar/write:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 日程内容
+        in: formData
+        name: content
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 写日程
+      tags:
+      - schedule
+  /crash:
+    get:
+      consumes:
+      - application/json
+      description: 里面有近14天已完成的任务
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Sch'
+      summary: 回收站
+      tags:
+      - schedule
+  /index:
+    get:
+      consumes:
+      - application/json
+      description: 登陆后
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Mem'
+      summary: 首页2
+      tags:
+      - handler
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 使用一站式
+      parameters:
+      - in: formData
+        name: password
+        type: string
+      - in: formData
+        name: uid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+        "402":
+          description: Payment Required
+          schema:
+            $ref: '#/definitions/model.Fundmt'
+      summary: 登录
+      tags:
+      - user
+  /preview/{year}/{month}/{day}:
+    get:
+      consumes:
+      - application/json
+      description: 查看当天的图片与做完的任务
+      parameters:
+      - description: 年
+        in: path
+        name: year
+        required: true
+        type: string
+      - description: 月
+        in: path
+        name: month
+        required: true
+        type: string
+      - description: 日
+        in: path
+        name: day
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.SchAndPh'
+      summary: 打开任意门
+      tags:
+      - door
+swagger: "2.0"
